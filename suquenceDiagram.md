@@ -39,7 +39,7 @@ sequenceDiagram
     participant db
     
     cl -->>ctr: couponValid()
-    rect rgb(200,150,255)
+    rect rgb(255,100,100)
         opt valid
             ctr -->> cl: approve
             ctr -->> s: couponInfo()
@@ -64,12 +64,20 @@ sequenceDiagram
     participant db
     
     cl -->> ctr: requestCouponDiagram
-    rect rgb(200,150,255)
+    rect rgb(255,100,100)
         ALT requestValid
             ctr -->> s: dataConfirm()
-            s -->> ctr: approve
-            s -->> db: update couponList()
-            ctr -->> cl: approve
+            rect rgb(255,0,0)
+                OPT requestValid
+                    s -->> ctr: reject
+                    ctr -->> cl: reject
+                end    
+                end
+                
+                s -->> ctr: approve
+                s -->> db: update couponList()
+                ctr -->> cl: approve
         end
     end
+
 ```
